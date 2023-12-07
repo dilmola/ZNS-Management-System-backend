@@ -47,6 +47,7 @@ class UserController extends Controller
                     'status' => 200,
                     'message' => 'Successful login',
                     'id' => $user->id,
+                    'users_type_id' => $user->users_type_id,
                 ];
 
                 return response()->json($data, 200);
@@ -88,7 +89,7 @@ class UserController extends Controller
         $user->email=$request->email;
         $user->fullname=$request->fullname;
         $user->password=$request->password;
-        $user->users_type_id = 2;
+        $user->users_type_id = 3;
 
         $user->save();
 

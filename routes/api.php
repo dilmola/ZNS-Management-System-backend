@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\AppointmentClientController;
+use App\Http\Controllers\AppointmentContractorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +25,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/register', [UserController::class, 'register']);
+Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 Route::get('/user/{id}', [UserController::class, 'user']);
 
 Route::get('/viewappointment/{id}', [AppointmentClientController::class, 'viewappointment']);
 Route::post('/createappointment', [AppointmentClientController::class, 'createappointment']);
+
+Route::get('/viewappointmentcontractor', [AppointmentContractorController::class, 'viewappointmentcontractor']);
+Route::get('/ViewAcceptAppointmentContractor/{id}', [AppointmentContractorController::class, 'ViewAcceptAppointmentContractor']);
+Route::post('/UpdateStatusAppointmentContractor/{id}/{appid}', [AppointmentContractorController::class, 'UpdateStatusAppointmentContractor']);
 
 Route::get('/student', [StudentController::class, 'index']);
 Route::post('/student', [StudentController::class, 'upload']);
