@@ -39,7 +39,7 @@ class AppointmentContractorController extends Controller
             'users.*',
             'appointment_status.*'
         )
-        ->where('appointment_client.users_id', $userId)
+        ->where('appointment_client.users_id_contractor', $userId)
         ->get();
 
        $data = [
