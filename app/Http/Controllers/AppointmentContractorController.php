@@ -7,15 +7,18 @@ use Illuminate\Http\Request;
 
 class AppointmentContractorController extends Controller
 {
-    public function viewappointmentcontractor(Request $request)
+    public function appointmentListForContractor(Request $request)
     {
-        $appointmentContractor = AppointmentContractor::leftJoin('users', 'appointment_client.users_id', '=', 'users.id')
+        $appointmentContractor = AppointmentContractor::leftJoin('users as client_user', 'appointment_client.users_id', '=', 'client_user.id')
         ->leftJoin('appointment_status', 'appointment_client.appointment_status_id', '=', 'appointment_status.id')
+        ->leftJoin('users as contractor_user', 'appointment_client.users_id_contractor', '=', 'contractor_user.id')
         ->where('appointment_client.appointment_status_id', 3)
         ->select(
             'appointment_client.id as appointment_id',
             'appointment_client.*',
-            'users.*',
+            'client_user.*',
+            'contractor_user.fullname as contractor_fullname', 
+            'client_user.fullname as client_fullname', 
             'appointment_status.*'
         )
         ->get();
@@ -50,22 +53,19 @@ class AppointmentContractorController extends Controller
        return response()->json($data,200);
     }
 
-    public function UpdateStatusAppointmentContractor(Request $request , $userId, $appId)
+    public function UpdateStatusAppointmentContractor(Request $request, $appointmentId, $contractorId, $appointmentStatusId)
     {
- 
-        AppointmentContractor::where('id', $appId)
+        AppointmentContractor::where('id', $appointmentId)
             ->update([
-                'users_id_contractor' => $userId,
-                'appointment_status_id' => $request->appointment_status_id,
+                'users_id_contractor' => $contractorId,
+                'appointment_status_id' => $appointmentStatusId,
             ]);   
 
-        $data=[
-            'status'=>200,
-            'message' =>'data uploaded'
+        $data = [
+            'status' => 200,
+            'message' => 'data update',
         ];
- 
-         return response()->json($data,200);
- 
-        
+
+        return response()->json($data, 200);
     }
 }

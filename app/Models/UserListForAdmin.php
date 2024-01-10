@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AppointmentContractor extends Model
+class UserListForAdmin extends Model
 {
     use HasFactory;
 
-    protected $table = 'appointment_client';
+    protected $table = 'users';
 
-    // Make all columns fillable
     protected $guarded = [];
 }

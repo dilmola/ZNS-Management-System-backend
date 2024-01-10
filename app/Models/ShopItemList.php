@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AppointmentContractor extends Model
+class ShopItemList extends Model
 {
     use HasFactory;
 
-    protected $table = 'appointment_client';
+    protected $table = 'shop_item_lists';
 
-    // Make all columns fillable
     protected $guarded = [];
 }

@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'upload', // Add any routes you want to exclude from CSRF protection here
+        '/delete/shop/item/lists{itemId}',
+        '/update/shop/item/lists/{itemId}'
     ];
 }

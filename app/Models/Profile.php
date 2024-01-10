@@ -11,6 +11,5 @@ class Profile extends Model
 
     protected $table = 'profile';
 
-    // Make all columns fillable
     protected $guarded = [];
 }
