@@ -14,6 +14,8 @@ use App\Http\Controllers\ShopItemListController;
 use App\Http\Controllers\testcontroller;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContractorController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AppointmentPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,15 +63,20 @@ Route::put('/update/status/{status}/contractor/{contractorId}', [ContractorContr
 Route::get('/viewappointment/{id}', [AppointmentClientController::class, 'viewappointment']);
 Route::post('/createappointment', [AppointmentClientController::class, 'createappointment']);
 
-Route::get('/view/listforcontractor/appointment', [AppointmentContractorController::class, 'appointmentListForContractor']);
+Route::get('/view/listforcontractor/appointment/{contractorId}', [AppointmentContractorController::class, 'appointmentListForContractor']);
 Route::get('/ViewAcceptAppointmentContractor/{id}', [AppointmentContractorController::class, 'ViewAcceptAppointmentContractor']);
 Route::put('/update/appointment/{appointmentId}/contractor/{contractorId}/status/{appointmentStatusId}', [AppointmentContractorController::class, 'UpdateStatusAppointmentContractor']);
 
+Route::post('/new/appointment/payment/item/{userId}', [AppointmentPaymentController::class, 'newAppointmentPaymentOfItemForInvoice']);
 
 Route::get('/view/appointment-listforadmin', [ListForAdminController::class, 'appointmentlistforadmin']);
 Route::get('/view/users-listforadmin', [ListForAdminController::class, 'userlistforadmin']);
 Route::get('/view/contractors-listforadmin', [ListForAdminController::class, 'usercontractorlistforadmin']);
 
+Route::post('/new/payment/item/{itemId}/user/{userId}', [PaymentController::class, 'newPaymentOfItem']);
+Route::put('/update/success/payment/user/{userId}', [PaymentController::class, 'updateSuccessPaymentOfItem']);
+Route::get('/payment/required/item/{userId}', [PaymentController::class, 'paymentRequiredOfItem']);
+Route::get('/view/list/payment/item', [PaymentController::class, 'viewListPaymentItem']);
 
 // Route::get('/student', [StudentController::class, 'index']);
 // Route::post('/student', [StudentController::class, 'upload']);

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class AppointmentContractorController extends Controller
 {
-    public function appointmentListForContractor(Request $request)
+    public function appointmentListForContractor(Request $request, $contractorId)
     {
         $appointmentContractor = AppointmentContractor::leftJoin('users as client_user', 'appointment_client.users_id', '=', 'client_user.id')
         ->leftJoin('appointment_status', 'appointment_client.appointment_status_id', '=', 'appointment_status.id')
@@ -31,6 +31,7 @@ class AppointmentContractorController extends Controller
        return response()->json($data,200);
     }
 
+    
     public function ViewAcceptAppointmentContractor(Request $request , $userId)
     {
         $appointmentContractor = AppointmentContractor::leftJoin('users', 'appointment_client.users_id', '=', 'users.id')
@@ -39,6 +40,8 @@ class AppointmentContractorController extends Controller
         ->select(
             'appointment_client.id as appointment_id',
             'appointment_client.*',
+            'users.fullname as client_fullname', 
+
             'users.*',
             'appointment_status.*'
         )
