@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\AppointmentClient;
+use App\Models\AppointmentSecondClient;
+
 use Validator;
 
 use Illuminate\Http\Request;
@@ -74,5 +76,75 @@ class AppointmentClientController extends Controller
          return response()->json($data,200);
  
         }
+    }
+
+    public function viewListSecondAppointmentClient(Request $request , $clientId)
+    {
+        $appointmentContractor = AppointmentClient::leftJoin('users', 'appointment_client.users_id', '=', 'users.id')
+        ->leftJoin('profile', 'appointment_client.users_id', '=', 'profile.user_id')
+
+        ->leftJoin('appointment_status', 'appointment_client.appointment_status_id', '=', 'appointment_status.id')
+        ->leftJoin('users as contractor_user', 'appointment_client.users_id_contractor', '=', 'contractor_user.id')
+        ->Join('appointment_second_client', 'appointment_client.id', '=', 'appointment_second_client.appoinment_first_id')
+
+        ->where('appointment_client.appointment_status_id', 1)
+        ->select(
+            'appointment_client.id as appointment_id',
+            'profile.address as address_user',
+
+            'appointment_client.*',
+            'users.fullname as client_fullname', 
+            'contractor_user.fullname as contractor_fullname', 
+            'users.*',
+            'appointment_status.*',
+            'appointment_second_client.status as second_appointment_status',
+            'appointment_second_client.*',
+            'appointment_second_client.id as sec_appointment_id',
+
+            'appointment_second_client.date_appointment as second_appointment_date'
+        )
+        ->where('appointment_client.users_id', $clientId)
+        ->where('appointment_client.status_second_appointment', 'Done')
+
+        ->get();   
+
+       $data = [
+        'status'=>200,
+        'appointment'=>$appointmentContractor
+       ];
+
+       return response()->json($data,200);
+    }
+
+    public function updateStatusSecondAppointmentClient(Request $request , $status ,$secondAppoinmentId)
+    {
+ 
+        AppointmentSecondClient::where('id', $secondAppoinmentId)
+        ->update([
+            'status' =>  $status,
+        ]);   
+
+        $data = [
+            'status' => 200,
+            'message' => 'data update',
+        ];
+
+        return response()->json($data, 200);
+    }
+
+    public function updateClientInvoiceSecAppointmentClient(Request $request ,$secondAppoinmentId)
+    {
+ 
+        AppointmentSecondClient::where('id', $secondAppoinmentId)
+        ->update([
+            'client_required_invoice' =>  1,
+        ]);   
+
+        $data = [
+            'status' => 200,
+            'message' => 'data update',
+        ];
+
+        return response()->json($data, 200);
     }
 }

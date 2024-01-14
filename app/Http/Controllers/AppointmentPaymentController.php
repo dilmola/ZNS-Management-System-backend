@@ -16,6 +16,7 @@ class AppointmentPaymentController extends Controller
     {
         $data = $request->json()->all();
         $responseItems = [];
+        $documentsId = uniqid();
 
         foreach ($data as $item) {
             $newAppointmentPaymentOfItemForInvoice = AppointmentPayment::create([
@@ -23,8 +24,8 @@ class AppointmentPaymentController extends Controller
                 'details_appointment_items' => $item['details_appointment_items'],
                 'quantity_appointment_items' => $item['quantity_appointment_items'],
                 'price_appointment_items' => $item['price_appointment_items'],
-                'status' => 'pending', // Assuming this is the correct status
-                'transaction_id' => 'waitingForPayment'
+                'status' => 'Pending', // Assuming this is the correct status
+                'documents_id' => $documentsId
             ]);
 
             $responseItems[] = $newAppointmentPaymentOfItemForInvoice;
@@ -34,6 +35,39 @@ class AppointmentPaymentController extends Controller
             'status' => 200,
             'newAppointmentPaymentOfItemForInvoice' => $responseItems,
         ];
+
+        return response()->json($responseData, 200);
+    }
+
+    public function viewListDocumentDetailSecondAppointmentContractor(Request $request, $contractorId)
+    {
+        $appointmentContractor = AppointmentPayment::select('appointment_payment.*')
+        ->where('appointment_payment.user_id', $contractorId)
+
+        ->get();
+
+        $responseData = [
+        'status' => 200,
+        'newAppointmentPaymentOfItemForInvoice' => $appointmentContractor,
+        ];
+
+        return response()->json($responseData);
+
+        return response()->json($responseData, 200);
+    }
+
+    public function getDataDocumentDetailSecondAppointmentClient(Request $request, $documentsId)
+    {
+        $appointmentContractor = AppointmentPayment::select('appointment_payment.*')
+        ->where('appointment_payment.documents_id', $documentsId)
+        ->get();
+
+        $responseData = [
+        'status' => 200,
+        'newAppointmentPaymentOfItemForDoc' => $appointmentContractor,
+        ];
+
+        return response()->json($responseData);
 
         return response()->json($responseData, 200);
     }

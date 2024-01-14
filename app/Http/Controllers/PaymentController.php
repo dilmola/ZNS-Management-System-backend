@@ -20,7 +20,7 @@ class PaymentController extends Controller
         $newPaymentItem = Payment::create([
             'user_id' => $userId,
             'shop_item_list_id' => $itemId,
-            'status' => 'pending',
+            'status' => 'Pending',
             'transaction_id' => 'waitingForPayment',
         ]);
     

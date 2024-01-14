@@ -62,23 +62,33 @@ Route::put('/update/status/{status}/contractor/{contractorId}', [ContractorContr
 
 Route::get('/viewappointment/{id}', [AppointmentClientController::class, 'viewappointment']);
 Route::post('/createappointment', [AppointmentClientController::class, 'createappointment']);
+Route::get('/view/list/second/appointment/client/{clientId}', [AppointmentClientController::class, 'viewListSecondAppointmentClient']);
+Route::put('/update/status/{status}/second/appointment/client/{secondAppoinmentId}', [AppointmentClientController::class, 'updateStatusSecondAppointmentClient']);
+Route::put('/update/client/required/invoice/second/appointment/client/{secondAppoinmentId}', [AppointmentClientController::class, 'updateClientInvoiceSecAppointmentClient']);
 
 Route::get('/view/listforcontractor/appointment/{contractorId}', [AppointmentContractorController::class, 'appointmentListForContractor']);
 Route::get('/ViewAcceptAppointmentContractor/{id}', [AppointmentContractorController::class, 'ViewAcceptAppointmentContractor']);
+Route::get('/view/list/second/appointment/contractor/{contractorId}', [AppointmentContractorController::class, 'ViewListSecondAppointmentContractor']);
+
 Route::put('/update/appointment/{appointmentId}/contractor/{contractorId}/status/{appointmentStatusId}', [AppointmentContractorController::class, 'UpdateStatusAppointmentContractor']);
+Route::put('/update/second/appointment/done/{appointmentId}', [AppointmentContractorController::class, 'UpdateSecondAppointmentDoneStatus']);
+
+// Route::put('/create/second/appointment/{appointmentId}/document_id/{documentId}', [AppointmentContractorController::class, 'createSecondAppointment']);//document_id
+
+Route::post('/create/second/appointment/', [AppointmentContractorController::class, 'createSecondAppointment']);//document_id
 
 Route::post('/new/appointment/payment/item/{userId}', [AppointmentPaymentController::class, 'newAppointmentPaymentOfItemForInvoice']);
+Route::get('/view/list/document/detail/second/appointment/contractor/{contractorId}', [AppointmentPaymentController::class, 'viewListDocumentDetailSecondAppointmentContractor']);
+Route::get('/get/data/document/detail/second/appointment/client/{documentsId}', [AppointmentPaymentController::class, 'getDataDocumentDetailSecondAppointmentClient']);
 
 Route::get('/view/appointment-listforadmin', [ListForAdminController::class, 'appointmentlistforadmin']);
 Route::get('/view/users-listforadmin', [ListForAdminController::class, 'userlistforadmin']);
 Route::get('/view/contractors-listforadmin', [ListForAdminController::class, 'usercontractorlistforadmin']);
+Route::get('/view/list/accept/second/appointment/clients-listforadmin', [ListForAdminController::class, 'viewListAcceptSecondAppointmentClientForAdmin']);
+
+// Route::put('/update/invoice/for/second/appointment/{secAppointmentId}', [ListForAdminController::class, 'updateInvoiceSecondAppointmentForClient']);
 
 Route::post('/new/payment/item/{itemId}/user/{userId}', [PaymentController::class, 'newPaymentOfItem']);
 Route::put('/update/success/payment/user/{userId}', [PaymentController::class, 'updateSuccessPaymentOfItem']);
 Route::get('/payment/required/item/{userId}', [PaymentController::class, 'paymentRequiredOfItem']);
 Route::get('/view/list/payment/item', [PaymentController::class, 'viewListPaymentItem']);
-
-// Route::get('/student', [StudentController::class, 'index']);
-// Route::post('/student', [StudentController::class, 'upload']);
-// Route::put('/student/edit/{id}', [StudentController::class, 'edit']);
-// Route::put('/student/delete/{id}', [StudentController::class, 'delete']);
