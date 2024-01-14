@@ -87,11 +87,13 @@ class UserController extends Controller
        } else {
         // Create a new user
         $user = new User;
+        $user->status = 'active';
         $user->username = $request->username;
         $user->email = $request->email;
         $user->fullname = $request->fullname;
         $user->password = $request->password;
         $user->users_type_id = 3;
+        
         $user->save();
 
         $newUserId = $user->id;
@@ -175,6 +177,7 @@ class UserController extends Controller
                 'profile.phone' => $request->phone,
                 'profile.address' => $request->address,
                 'users.password' => $request->password,
+
             ]);
 
             $data=[

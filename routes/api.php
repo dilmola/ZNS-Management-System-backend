@@ -16,6 +16,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AppointmentPaymentController;
+use App\Http\Controllers\ToyyibPayController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,3 +93,9 @@ Route::post('/new/payment/item/{itemId}/user/{userId}', [PaymentController::clas
 Route::put('/update/success/payment/user/{userId}', [PaymentController::class, 'updateSuccessPaymentOfItem']);
 Route::get('/payment/required/item/{userId}', [PaymentController::class, 'paymentRequiredOfItem']);
 Route::get('/view/list/payment/item', [PaymentController::class, 'viewListPaymentItem']);
+
+// Route::get('toyyibpay-status', [ToyyibPayController::class, 'toyyibpay-status']);
+// Route::get('toyyibpay-callback', [ToyyibPayController::class, 'toyyibpay-callback']);
+// Route::get('/toyyibpay', [ToyyibPayController::class, 'createBill']);
+// Route::get('/toyyibpay-status', [ToyyibPayController::class, 'toyyibpay-status']);
+// Route::get('/toyyibpay-callback', [ToyyibPayController::class, 'toyyibpay-callback']);
