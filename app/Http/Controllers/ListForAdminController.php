@@ -12,7 +12,9 @@ class ListForAdminController extends Controller
 {
     public function userlistforadmin(Request $request)
     {
-        $listuser = UserListForAdmin::count(); 
+        $listuser = UserListForAdmin::where('users_type_id', 3)
+        ->where('status', 'active')
+        ->count();
     
         $data = [
             'status' => 200,
@@ -24,7 +26,9 @@ class ListForAdminController extends Controller
 
     public function usercontractorlistforadmin(Request $request)
     {
-        $listuser = UserListForAdmin::where('users_type_id', 2)->count();
+        $listuser = UserListForAdmin::where('users_type_id', 2)
+        ->where('status', 'active')
+        ->count();
     
         $data = [
             'status' => 200,
