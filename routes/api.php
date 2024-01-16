@@ -45,7 +45,7 @@ Route::group(['middleware' => 'cors'], function () {
 Route::post('/create/shop/item/list', [ShopItemListController::class, 'createShopItemLists']);
 Route::get('/get/shop/item/lists', [ShopItemListController::class, 'getShopItemLists']);
 Route::put('/update/shop/item/lists/{itemId}', [ShopItemListController::class, 'updateShopItemLists']);
-Route::post('/delete/shop/item/lists{itemId}', [ShopItemListController::class, 'deleteShopItemLists']);
+Route::delete('/delete/shop/item/lists/{itemId}', [ShopItemListController::class, 'deleteShopItemLists']);
 Route::get('/view/total/available/item', [ShopItemListController::class, 'totalAvailableItem']);
 Route::get('/view/total/out-of-stock/item', [ShopItemListController::class, 'totalOutOfStockItem']);
 
